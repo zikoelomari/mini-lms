@@ -1,0 +1,62 @@
+{
+  "info": {
+    "name": "Mini-LMS API Collection",
+    "description": "Collection Postman pour tester le système éducatif Mini-LMS",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "gateway_url", "value": "http://localhost:8080/api"},
+    {"key": "student_url", "value": "http://localhost:8081"},
+    {"key": "course_url", "value": "http://localhost:8082"},
+    {"key": "enrollment_url", "value": "http://localhost:8083"},
+    {"key": "grade_url", "value": "http://localhost:8084"}
+  ],
+  "item": [
+    {
+      "name": "1. Students",
+      "item": [
+        {"name": "Create Student 1", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"firstName\": \"Jean\", \"lastName\": \"Dupont\", \"email\": \"jean@email.com\", \"dateOfBirth\": \"2000-05-15\"}"}, "url": "{{gateway_url}}/students"}},
+        {"name": "Create Student 2", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"firstName\": \"Marie\", \"lastName\": \"Martin\", \"email\": \"marie@email.com\", \"dateOfBirth\": \"2001-03-22\"}"}, "url": "{{gateway_url}}/students"}},
+        {"name": "Get All Students", "request": {"method": "GET", "url": "{{gateway_url}}/students"}},
+        {"name": "Get Student by ID", "request": {"method": "GET", "url": "{{gateway_url}}/students/1"}},
+        {"name": "Get Full Profile (API Synthèse)", "request": {"method": "GET", "url": "{{gateway_url}}/students/1/full-profile"}}
+      ]
+    },
+    {
+      "name": "2. Courses",
+      "item": [
+        {"name": "Create Course - Math", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"courseCode\": \"MATH101\", \"title\": \"Mathématiques\", \"professorName\": \"Prof. Dubois\", \"credits\": 6, \"maxCapacity\": 30}"}, "url": "{{gateway_url}}/courses"}},
+        {"name": "Create Course - Info", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"courseCode\": \"INFO201\", \"title\": \"Programmation Java\", \"professorName\": \"Prof. Bernard\", \"credits\": 4, \"maxCapacity\": 25}"}, "url": "{{gateway_url}}/courses"}},
+        {"name": "Get All Courses", "request": {"method": "GET", "url": "{{gateway_url}}/courses"}},
+        {"name": "Get Course by ID", "request": {"method": "GET", "url": "{{gateway_url}}/courses/1"}}
+      ]
+    },
+    {
+      "name": "3. Enrollments",
+      "item": [
+        {"name": "Enroll Student 1 to Course 1", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"studentId\": 1, \"courseId\": 1}"}, "url": "{{gateway_url}}/enrollments"}},
+        {"name": "Enroll Student 1 to Course 2", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"studentId\": 1, \"courseId\": 2}"}, "url": "{{gateway_url}}/enrollments"}},
+        {"name": "Get All Enrollments", "request": {"method": "GET", "url": "{{gateway_url}}/enrollments"}},
+        {"name": "Get Enrollments by Student", "request": {"method": "GET", "url": "{{gateway_url}}/enrollments/student/1"}}
+      ]
+    },
+    {
+      "name": "4. Grades",
+      "item": [
+        {"name": "Add Grade (Enrollment 1)", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"enrollmentId\": 1, \"value\": 15.5, \"gradeType\": \"EXAM\", \"coefficient\": 2.0, \"gradedBy\": \"Prof. Dubois\"}"}, "url": "{{gateway_url}}/grades"}},
+        {"name": "Add Grade (Enrollment 2)", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"enrollmentId\": 2, \"value\": 17.0, \"gradeType\": \"PROJECT\", \"coefficient\": 1.5, \"gradedBy\": \"Prof. Bernard\"}"}, "url": "{{gateway_url}}/grades"}},
+        {"name": "Get All Grades", "request": {"method": "GET", "url": "{{gateway_url}}/grades"}},
+        {"name": "Get Grades by Student", "request": {"method": "GET", "url": "{{gateway_url}}/grades/student/1"}},
+        {"name": "Get Student Statistics", "request": {"method": "GET", "url": "{{gateway_url}}/grades/student/1/statistics"}},
+        {"name": "Get Student Average", "request": {"method": "GET", "url": "{{gateway_url}}/grades/student/1/average"}},
+        {"name": "Test Invalid Grade (>20)", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"enrollmentId\": 1, \"value\": 25.0, \"gradeType\": \"QUIZ\"}"}, "url": "{{gateway_url}}/grades"}}
+      ]
+    },
+    {
+      "name": "5. Complete Scenario",
+      "item": [
+        {"name": "Final - Get Full Student Profile", "request": {"method": "GET", "url": "{{gateway_url}}/students/1/full-profile"}}
+      ]
+    }
+  ]
+}

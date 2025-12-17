@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+      routes:
+        # Route vers Student Service
+        - id: student-service
+          uri: lb://STUDENT-SERVICE
+          predicates:
+            - Path=/api/students/**
+          filters:
+            - RewritePath=/api/students/(?<segment>.*), /api/students/${segment}
+            - RewritePath=/api/students, /api/students
+
+        # Route vers Course Service
+        - id: course-service
+          uri: lb://COURSE-SERVICE
+          predicates:
+            - Path=/api/courses/**
+          filters:
+            - RewritePath=/api/courses/(?<segment>.*), /api/courses/${segment}
+            - RewritePath=/api/courses, /api/courses
+
+        # Route vers Enrollment Service
+        - id: enrollment-service
+          uri: lb://ENROLLMENT-SERVICE
+          predicates:
+            - Path=/api/enrollments/**
+          filters:
+            - RewritePath=/api/enrollments/(?<segment>.*), /api/enrollments/${segment}
+            - RewritePath=/api/enrollments, /api/enrollments
+
+        # Route vers Grade Service
+        - id: grade-service
+          uri: lb://GRADE-SERVICE
+          predicates:
+            - Path=/api/grades/**
+          filters:
+            - RewritePath=/api/grades/(?<segment>.*), /api/grades/${segment}
+            - RewritePath=/api/grades, /api/grades
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
