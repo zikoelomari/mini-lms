@@ -43,6 +43,8 @@ Ce projet implémente un **système éducatif modulaire (LMS)** basé sur une ar
 | **Spring Data JPA** | Persistance |
 | **H2 Database** | Base de données in-memory |
 | **Lombok** | Réduction du boilerplate |
+| **React** | Frontend (Interface utilisateur) |
+| **Node.js / npm** | Gestion des dépendances frontend |
 
 ## 📁 Structure du Projet
 
@@ -55,6 +57,7 @@ mini-lms/
 ├── course-service/            # Gestion des cours
 ├── enrollment-service/        # Gestion des inscriptions
 ├── grade-service/             # Gestion des notes
+├── mini-lms-frontend/         # Application React (Frontend)
 ├── postman_collection.json    # Tests Postman
 └── README.md
 ```
@@ -65,6 +68,7 @@ mini-lms/
 
 - **Java 17+**
 - **Maven 3.8+**
+- **Node.js 16+** et **npm** (pour le frontend)
 - **IntelliJ IDEA** (recommandé)
 
 ### Étapes de Démarrage
@@ -108,6 +112,14 @@ mini-lms/
    mvn spring-boot:run
    ```
 
+7. **Démarrer le Frontend React**
+   ```bash
+   cd mini-lms-frontend
+   npm install
+   npm start
+   ```
+   L'application s'ouvrira automatiquement sur : http://localhost:3000
+
 ### Démarrage dans IntelliJ IDEA
 
 1. Ouvrez le dossier `mini-lms` comme projet Maven
@@ -125,6 +137,7 @@ mini-lms/
 | Course Service | 8082 | http://localhost:8082/h2-console |
 | Enrollment Service | 8083 | http://localhost:8083/h2-console |
 | Grade Service | 8084 | http://localhost:8084/h2-console |
+| Frontend React | 3000 | http://localhost:3000 |
 
 ## 📡 Endpoints Principaux
 
@@ -239,6 +252,30 @@ Le système gère les pannes partielles :
 
 - Développeurs Backend Spring
 - Architecte Microservices
+
+## 🎨 Frontend React
+
+L'application frontend React offre une interface utilisateur moderne pour gérer le système LMS :
+
+### Fonctionnalités Frontend
+
+- ✅ **Page de login** avec authentification
+- ✅ **Tableau de bord** avec statistiques
+- ✅ **Gestion des étudiants** (CRUD complet)
+- ✅ **Gestion des cours** (CRUD complet)
+- ✅ **Gestion des inscriptions**
+- ✅ **Gestion des notes**
+- ✅ **Interface responsive** et moderne
+
+### Authentification
+
+Pour la démonstration, vous pouvez utiliser n'importe quel identifiant et mot de passe pour vous connecter. L'état de connexion est sauvegardé dans le localStorage.
+
+### Technologies Frontend
+
+- React 19.2
+- React Scripts
+- Pas de framework UI externe (CSS inline pour la simplicité)
 
 ## 📝 Licence
 
